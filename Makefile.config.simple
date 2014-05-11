@@ -1,0 +1,28 @@
+TARGET_CHIP := NRF51822_QFAA_CA
+BOARD := BOARD_PCA10001
+
+# project specific
+C_SOURCE_FILES = $(notdir $(wildcard ../*.c))
+C_SOURCE_FILES += nrf_delay.c
+
+# Use shell to find name of root folder. Possible but horrible to do in make.
+OUTPUT_FILENAME = $(shell basename "$(realpath ../)")
+
+# set SDK, JLink, arm-none-eabi folders
+SDK_PATH = $(HOME)/bin/nrf51_sdk_v5_2_0_39364/Nordic/nrf51822/
+SOC_PATH = $(HOME)/bin/nrf51_softdevice/
+PROG_ROOT := $(HOME)/bin/jlink
+GNU_INSTALL_ROOT := /usr
+GNU_VERSION := 4.9.0
+GNU_PREFIX := arm-none-eabi
+TERMINAL ?= gnome-terminal -e
+
+#Uncomment correct line if you have s110 programmed on the chip.
+DEVICE_VARIANT := xxaa
+#DEVICE_VARIANT := xxab
+
+#USE_SOFTDEVICE := s110
+#USE_SOFTDEVICE := s120
+
+#USE_EXT_SENSORS = 1
+
