@@ -1,6 +1,6 @@
 # nrf51822-makefile #
 
-**Makefile template for Nordic nrf51822, using pure gcc. Copied and modified from the `hlnd:nrf51-pure-gcc-setup` repository**
+**Makefile template for Nordic nrf51822, using pure gcc. Copied and modified from the [nrf51-pure-gcc-setup](https://github.com/hlnd/nrf51-pure-gcc-setup) repository**
 
 The makefile scripts were tested under,
 ```bash
