@@ -1,4 +1,4 @@
-#-------------- include configuration -----------------------------------------#
+#------------ include configuration -------------------------------------------#
 include Makefile.config
 
 #------------ common makefile, do not modify ----------------------------------#
@@ -100,7 +100,13 @@ C_SOURCE_FILENAMES = $(notdir $(C_SOURCE_FILES) )
 ASSEMBLER_SOURCE_FILENAMES = $(notdir $(ASSEMBLER_SOURCE_FILES) )
 
 # Make a list of source paths
-C_SOURCE_PATHS += ../ $(SDK_SOURCE_PATH) $(TEMPLATE_PATH) $(wildcard $(SDK_SOURCE_PATH)*/) $(wildcard $(SDK_SOURCE_PATH)ext_sensors/*/) $(wildcard $(SDK_SOURCE_PATH)ble/*/)
+C_SOURCE_PATHS += ../ $(SDK_SOURCE_PATH) $(TEMPLATE_PATH) $(wildcard $(SDK_SOURCE_PATH)*/)
+ifdef USE_BLE
+C_SOURCE_PATHS += $(wildcard $(SDK_SOURCE_PATH)ble/*/)
+endif
+ifdef USE_EXT_SENSORS
+C_SOURCE_PATHS += $(wildcard $(SDK_SOURCE_PATH)ext_sensors/*/)
+endif
 ASSEMBLER_SOURCE_PATHS = ../ $(SDK_SOURCE_PATH) $(TEMPLATE_PATH) $(wildcard $(SDK_SOURCE_PATH)*/)
 
 C_OBJECTS = $(addprefix $(OBJECT_DIRECTORY)/, $(C_SOURCE_FILENAMES:.c=.o) )

@@ -1,7 +1,7 @@
 TARGET_CHIP := NRF51822_QFAA_CA
 BOARD := BOARD_PCA10001
 
-# project specific
+# project specific (notdir : exclude directory in wildcard)
 C_SOURCE_FILES = $(notdir $(wildcard ../*.c))
 C_SOURCE_FILES += nrf_delay.c
 
