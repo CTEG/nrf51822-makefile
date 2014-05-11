@@ -9,8 +9,8 @@ C_SOURCE_FILES += nrf_delay.c
 OUTPUT_FILENAME = $(shell basename "$(realpath ../)")
 
 # set SDK, JLink, arm-none-eabi folders
-SDK_PATH = $(HOME)/bin/nrf51_sdk_v5_2_0_39364/Nordic/nrf51822/
-SOC_PATH = $(HOME)/bin/nrf51_softdevice/
+SDK_PATH = $(HOME)/bin/nrf51_sdk_v5_2_0_39364/Nordic/nrf51822
+SOC_PATH = $(HOME)/bin/nrf51_softdevice
 PROG_ROOT := $(HOME)/bin/jlink
 GNU_INSTALL_ROOT := /usr
 GNU_VERSION := 4.9.0

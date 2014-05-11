@@ -7,7 +7,7 @@ DEVICESERIES := nrf51
 
 SDK_INCLUDE_PATH = $(SDK_PATH)/Include/
 SDK_SOURCE_PATH = $(SDK_PATH)/Source/
-TEMPLATE_PATH += $(SDK_SOURCE_PATH)/templates/gcc/
+TEMPLATE_PATH += $(SDK_SOURCE_PATH)templates/gcc/
 
 ifeq ($(USE_SOFTDEVICE),s110)
 	USE_BLE = 1
@@ -77,16 +77,16 @@ ASMFLAGS += -x assembler-with-cpp
 
 INCLUDEPATHS += -I"../"
 INCLUDEPATHS += -I"$(SDK_INCLUDE_PATH)"
-INCLUDEPATHS += -I"$(SDK_INCLUDE_PATH)/gcc"
+INCLUDEPATHS += -I"$(SDK_INCLUDE_PATH)gcc"
 ifdef USE_BLE
-INCLUDEPATHS += -I"$(SDK_INCLUDE_PATH)/ble"
-INCLUDEPATHS += -I"$(SDK_INCLUDE_PATH)/ble/ble_services"
-INCLUDEPATHS += -I"$(SDK_INCLUDE_PATH)/app_common"
-INCLUDEPATHS += -I"$(SDK_INCLUDE_PATH)/sd_common"
-INCLUDEPATHS += -I"$(SDK_INCLUDE_PATH)/$(USE_SOFTDEVICE)"
+INCLUDEPATHS += -I"$(SDK_INCLUDE_PATH)ble"
+INCLUDEPATHS += -I"$(SDK_INCLUDE_PATH)ble/ble_services"
+INCLUDEPATHS += -I"$(SDK_INCLUDE_PATH)app_common"
+INCLUDEPATHS += -I"$(SDK_INCLUDE_PATH)sd_common"
+INCLUDEPATHS += -I"$(SDK_INCLUDE_PATH)$(USE_SOFTDEVICE)"
 endif
 ifdef USE_EXT_SENSORS
-INCLUDEPATHS += -I"$(SDK_INCLUDE_PATH)/ext_sensors"
+INCLUDEPATHS += -I"$(SDK_INCLUDE_PATH)ext_sensors"
 endif
 
 # Sorting removes duplicates
@@ -185,7 +185,7 @@ ifdef SEGGER_SERIAL
 endif
 
 JLINK_OPTIONS = -device nrf51822 -if swd -speed 1000
-JLINK = $(PROG_ROOT)/JLinkExe $(JLINK_OPTIONS) $(JLINKEXE_OPTION)
+JLINK = -$(PROG_ROOT)/JLinkExe $(JLINK_OPTIONS) $(JLINKEXE_OPTION)
 JLINKGDBSERVER = $(PROG_ROOT)/JLinkGDBServer $(JLINK_OPTIONS) $(JLINKGDBSERVER_OPTION)
 # program softdevice
 SOFTDEVICE_OUTPUT = $(OUTPUT_BINARY_DIRECTORY)/$(notdir $(SOFTDEVICE))
@@ -193,14 +193,14 @@ MAIN_BIN = $(SOFTDEVICE_OUTPUT:.hex=_mainpart.bin)
 UICR_BIN = $(SOFTDEVICE_OUTPUT:.hex=_uicr.bin)
 
 # (1) flash device
-flash: all flash.jlink
+flash: flash.jlink
 	$(JLINK) flash.jlink
 
 flash.jlink:
 	printf "r\nloadbin $(BIN) $(FLASH_START_ADDRESS)\nr\ng\nexit\n" > flash.jlink
 
-# (2) flash device with softcore S110/S120 (remove erase-all)
-flash-softdevice: flash-softdevice.jlink
+# (2) flash device with softcore S110/S120
+flash-softdevice: erase-all flash-softdevice.jlink
 ifndef SOFTDEVICE
 	$(error "You need to set the SOFTDEVICE command-line parameter to a path (without spaces) to the softdevice hex-file")
 endif
